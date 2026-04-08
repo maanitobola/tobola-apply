@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOBOLA Health Care Services — Employment Application</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --tobola-blue: #6B7FAD;
+    --tobola-dark: #3D4F7C;
+    --tobola-light: #E8ECF4;
+    --tobola-accent: #4A5E8C;
+    --tobola-soft: #F4F6FB;
+    --tobola-warm: #8B9BC4;
+    --white: #FFFFFF;
+    --text-primary: #2C3650;
+    --text-secondary: #5A6580;
+    --text-muted: #8C95AA;
+    --border: #D4DAE8;
+    --border-focus: #6B7FAD;
+    --error: #C0392B;
+    --error-bg: #FDEDEC;
+    --success: #27AE60;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --shadow-sm: 0 1px 3px rgba(59,71,107,0.08);
+    --shadow-md: 0 4px 16px rgba(59,71,107,0.10);
+    --shadow-lg: 0 8px 32px rgba(59,71,107,0.12);
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--tobola-soft);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── HEADER ─── */
+  .app-header {
+    background: linear-gradient(135deg, var(--tobola-dark) 0%, var(--tobola-blue) 60%, var(--tobola-warm) 100%);
+    padding: 40px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .app-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .app-header::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+  .logo-container { margin-bottom: 16px; }
+  .logo-container img { height: 72px; filter: brightness(0) invert(1); opacity: 0.95; }
+  .app-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 28px;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .app-header p {
+    color: rgba(255,255,255,0.75);
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  /* ─── STEPPER ─── */
+  .stepper-wrapper {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+  }
+  .stepper {
+    display: flex;
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 0 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .stepper::-webkit-scrollbar { display: none; }
+  .step-indicator {
+    flex: 1;
+    min-width: 0;
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    position: relative;
+    transition: var(--transition);
+  }
+  .step-indicator::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: var(--tobola-blue);
+    border-radius: 3px 3px 0 0;
+    transition: var(--transition);
+  }
+  .step-indicator.active::after { width: 70%; }
+  .step-number {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    border: 2px solid var(--border);
+    color: var(--text-muted);
+    transition: var(--transition);
+    flex-shrink: 0;
+  }
+  .step-indicator.active .step-number {
+    background: var(--tobola-blue);
+    border-color: var(--tobola-blue);
+    color: var(--white);
+  }
+  .step-indicator.completed .step-number {
+    background: var(--success);
+    border-color: var(--success);
+    color: var(--white);
+  }
+  .step-indicator.completed .step-number::after {
+    content: '✓';
+    font-size: 14px;
+  }
+  .step-indicator.completed .step-num-text { display: none; }
+  .step-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-align: center;
+    white-space: nowrap;
+    transition: var(--transition);
+  }
+  .step-indicator.active .step-label { color: var(--tobola-blue); font-weight: 600; }
+  .step-indicator.completed .step-label { color: var(--success); }
+
+  /* ─── FORM CONTAINER ─── */
+  .form-container {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+
+  /* ─── SECTIONS ─── */
+  .form-section {
+    display: none;
+    animation: fadeIn 0.35s ease;
+  }
+  .form-section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: 32px 28px;
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .section-subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+
+  /* ─── FORM GRID ─── */
+  .form-row {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .form-row.cols-2 { grid-template-columns: 1fr 1fr; }
+  .form-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .form-row.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .form-row.cols-2-1 { grid-template-columns: 2fr 1fr; }
+  .form-row.cols-1-2 { grid-template-columns: 1fr 2fr; }
+  .form-row.cols-3-1 { grid-template-columns: 3fr 1fr; }
+
+  @media (max-width: 600px) {
+    .form-row.cols-2, .form-row.cols-3, .form-row.cols-4,
+    .form-row.cols-2-1, .form-row.cols-1-2, .form-row.cols-3-1 {
+      grid-template-columns: 1fr;
+    }
+    .section-card { padding: 24px 18px; }
+    .app-header h1 { font-size: 24px; }
+  }
+
+  /* ─── INPUTS ─── */
+  .form-group { display: flex; flex-direction: column; }
+  .form-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+    letter-spacing: 0.01em;
+  }
+  .form-group label .required { color: var(--error); margin-left: 2px; }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text-primary);
+    background: var(--white);
+    transition: var(--transition);
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(107,127,173,0.12);
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+  .form-group select { cursor: pointer; }
+
+  .form-group input.error,
+  .form-group select.error {
+    border-color: var(--error);
+    box-shadow: 0 0 0 3px rgba(192,57,43,0.08);
+  }
+  .error-message {
+    font-size: 12px;
+    color: var(--error);
+    margin-top: 4px;
+    display: none;
+  }
+  .form-group.has-error .error-message { display: block; }
+
+  /* ─── RADIO / CHECK GROUPS ─── */
+  .option-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 2px;
+  }
+  .option-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 7px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    background: var(--white);
+  }
+  .option-group label:hover { border-color: var(--tobola-warm); background: var(--tobola-soft); }
+  .option-group input[type="radio"],
+  .option-group input[type="checkbox"] { accent-color: var(--tobola-blue); width: 16px; height: 16px; }
+  .option-group input:checked + span,
+  .option-group label:has(input:checked) {
+    border-color: var(--tobola-blue);
+    background: var(--tobola-light);
+  }
+
+  .inline-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  /* ─── REPEATER CARDS ─── */
+  .repeater-card {
+    background: var(--tobola-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .repeater-card .card-badge {
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    background: var(--tobola-blue);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+  }
+  .repeater-card .form-row { margin-bottom: 12px; }
+  .repeater-card .form-row:last-child { margin-bottom: 0; }
+
+  /* ─── NAV BUTTONS ─── */
+  .form-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 28px;
+    gap: 16px;
+  }
+  .btn {
+    padding: 12px 28px;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+  }
+  .btn-primary {
+    background: var(--tobola-blue);
+    color: var(--white);
+  }
+  .btn-primary:hover { background: var(--tobola-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1.5px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--tobola-warm); color: var(--tobola-dark); }
+  .btn-submit {
+    background: linear-gradient(135deg, var(--tobola-dark), var(--tobola-blue));
+    color: var(--white);
+    padding: 14px 36px;
+    font-size: 15px;
+  }
+  .btn-submit:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+  .btn .arrow { font-size: 18px; line-height: 1; }
+
+  /* ─── DISCLAIMER ─── */
+  .disclaimer-text {
+    background: var(--tobola-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+  }
+  .consent-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .consent-check input { accent-color: var(--tobola-blue); width: 18px; height: 18px; margin-top: 2px; flex-shrink: 0; }
+  .consent-check span { font-size: 14px; color: var(--text-primary); line-height: 1.5; }
+
+  /* ─── SIGNATURE ─── */
+  .signature-pad-container {
+    border: 1.5px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 4px;
+    background: var(--white);
+    position: relative;
+  }
+  .signature-pad-container canvas {
+    width: 100%;
+    height: 120px;
+    display: block;
+    cursor: crosshair;
+    border-radius: var(--radius-sm);
+  }
+  .signature-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+  .btn-clear-sig {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 8px;
+  }
+  .btn-clear-sig:hover { color: var(--error); }
+
+  /* ─── SUCCESS ─── */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 60px 24px;
+  }
+  .success-screen.active { display: block; }
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--success), #2ECC71);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 36px;
+    color: white;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  @keyframes popIn {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+  }
+  .success-screen h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .success-screen p {
+    color: var(--text-secondary);
+    font-size: 15px;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  /* ─── LOADING OVERLAY ─── */
+  .loading-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.85);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .loading-overlay.active { display: flex; }
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--tobola-blue);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-overlay p { font-size: 14px; color: var(--text-secondary); }
+
+  /* ─── FOOTER ─── */
+  .app-footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="app-header">
+  <div class="header-content">
+    <div class="logo-container">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAACtCAYAAABfh6HiAAAAAXNSR0IArs4c6QAAAAlwSFlzAAAh1QAAIdUBBJy0nQAAQABJREFUeAHtnQdgW9XVgN/SsJ3lJM4spGxKoJSyCy2rFMpIyCxQaEuBTELLHlkig00bRiYbCpRMwurfQgu0UHYZpRTCKpvsaVvSW/93nixFtmVbtmXHse+DWNJ7991x7j3nnn01TV0KAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgIKAgoCCgLbAgL6tmi0kG2eE1vyrbCnneNrRljzqFn3/aB+32dsRlVTPNB1X/N17lV9T3ciuCc/0mXkPS4pr2um7hqPzpl5yj+De/X8GTXpj7tYWnQ/GtnNN/wSw9c2+L6/wvfDr8+befKX9bwaPBo7edkZuqHt43u+E9yo2deq8VCnrhu64/nuGs0w3vWN+BsLYqevaaj++p6Pij1WbLjJ/TTf+C4g66t5nqfr5heu5vw7aW5+657YWfEG3t/RdJPnAjArAHAa9um54GWdzvqeWx4JGbfNig3ZUF99DT274IKFRZUl5jhD13vSFPNdNXfMl+b6j8ydOeylhupQz1MQsLZ3QBiu39/XzClWKKz7nqfphgnuahqIpHk+C0NjWeohzQC7PM8VxA6+y7hBVsp5wWf1MpAO3dRMK6TFKzaupWidBGD0xMUHGIZ1AdUeZ1nhHmCn5rq2Rn80x7E113G+HjN12TI94d0099phH0u7uS56MiIcKh4U9JEC4GDQT10GI78Zix+MJ9V/6ZudrKT/RR+Pm7LsAd32b559zVDpa97Xr2J3R4vd0l9rnnO2ppv7hqPFpuskNQ00NkxLSyYqk0VetzdHT152a1/zrQdjsZgAtNYF8dgBwF4ZCoUN3kzBHToczAWoL3Cm85pjuxu3OPYDVNAsAmB3jZTqrntFKFLcQ2Asc6sbRjBfFeWbN1K/IgC1Zin3jfQWmfvpdnCXZSaL0nXsyhtZvMc6TiLYDW0n+aTmJg7xXfsg107ebdtxm+eDHduOuZ4TLFLHTr6VsOOHuXb8YMdNzuQdkDd5Lt/HsLB8h98s3dSOnAMWYyctHW9ZoadCocjpJshvO4l3ksnyn/uue0iicsv5nuusYrfua/j6OCNiPTd64qLBOaoJbum+c2kikTicPr3u2IkVnp08lLEsFeQR5Kfvf3Bt92C5n/SdIxLx8hn0rQLE2xkCNFkLmX89d/KSA+uqv+b9UbGFOxZ73ZZCSGbT9+9DaPR4vHwOYz4y6SR+kqyseNg0zDCIu59lmvevdPe9f9RFD/asWY/8Tiast0HzQ4DlBIEZcJwqsHadxBYPWPN9k5uMnwqWHlPUq9NXuepozD3q7Uz54kSy4r0ATq69SIgjsIMY+N0bU1dHL7vdcwCpCfQN9v4PisvdFxKdzYTswlyrZk8f/rJ8YYc8kQ3I8+NbXvKLS4p03YIRYMn6/sbbZ44IdvfRk5fuKZst+8kbRYZluuzA9V1jJi25iEquow52awiK53wKzRh2+zXDVlS99/KYKxevMExzief7j4JMPwmFow+OmbjkjHkzhy2rWffcGSPf5977YyYv2wDO65R5aeyUpV+nOQC69sXcmUNeyXrv72MmLf2MPt/sOu6jhhUaEtJCy8ZOXjh47vSRr2eVq/V1XOyJPp6TWIaA8z3hVmS35/PmeTOGX5guPGrU/Ge1Pr0BpH+A6zpvR6OdTkcO6DHqsoU/W3DdSNllM9dd1w/ezI9Xz5m8KCo3YQP+W2LqL1V48ObCjfm+q7nxV+fO/HmdHFCmsjy++H6oK4S1CAnDByYvj5645B3NCo8IXvX9XnlUoYpUQWC75wCyZtIqD2thllvAM4PembGBo6aUcwwjrCOnpt+hoCzwqvJa6r7nhWzXC6XL5PocO2nJIHbeyezOS0HWuLC60Iu7b79maBr5g9fmXT38z5T5K4Siq+PaVyNXF5umNRdis2+uesEUIUvws0KK5EpRMvnmVo1Bvqev0MYv7qPMCl831sIC3RoORfszvLsEwdNlan5OmPBkxPeSC2gjhLjxoogSvLvK9PWbs8suWDDadnz3BmgRu77/SCK+5dVotOQ4M2xdiyiQgW32O/Q/gJvAOKH5zEXVMKSQFaoXptXqaeAH0lmPgO3X/dKxlz/RjXbWIAulWtONLg28rh5nQSD3RGYV6IhfMxQix+DHXv5AKWh6PSj6EIjxAbJ+ieyivu+8maM4OkntFZD6AF93ljvJ+NuhSFFvtBRXxWLP1NdMrqpq3bv11vMTiAFv0MYPPNe/I5HY8k04UvJd30n8tlbhqht2t8RpEK2jNc+9Cj1H/4Bb8v2P7dVrarHmncySj0DhTdCkHdAK/l7Yezias7/x9j62rvoz9xFOgA//sohA5mHzvsBRldEPqTvqmxXFhqmvFlFJ/uPqMmLEwoDgN6+VjvG2IgCNnGffio7klR1g+m9jp9tPXkfhyEZpJnJWZfhwznpXzTZsSj4hSj4IyE+/dtc3LK8H2vRUrXVNFISoEkV4X9NPrIQjfgFKxOau/Xr8xCUDavZHtP0Qo4tBlId1w1oFvuwgIgxok1j/49JaMo+vVXJPl37vYBr2M8jy31hWNARBGMt79WN2sbQuRQKkrNmV5v329dKASfK1iOZbpa7nbvRcuspYaK576cCiSPMa6Dhv17WuOg4EGjHSWMzH8qQPZlm/GjK9T1lu/QSB6rtcsJ3yplWkhSn6X1FWYS3AZOEfV997NZ/Vws6qAmggBM2ikWixYPK7YtUwrHAZPT2iZh16ohLRQ9+DPizxPacXuyg7Zf39D54bWvHq/2ireffLKkvEIaOvehzN/7a5EIx6SLchdVGIX3dTt9aiZrBlJAC7qxnRFQHIc2oUAcgTUFLsq8pFnVlhA5G5V5hrO9lwAKJzyKsG1xHaoW1Mm/lYqgH3kNfLFKp/onQ9Ea+gO/oaIUiByVPza3EYumntTX8xmIU+Qm9RJNiSz6VDxBYtGgnrom2W+mmoFwb33fN5t0XKuH5fx3OEBIhdt9T27XV8pn0Viu31iZIWabcdVlr/umqHA27OkMJFkRKQoASHg9WJxOd1bcp1NgGXChLJuuWfjkZ91PyCKcakUVgATJYpggSS9q7ZETTnPXmcSFgVm2Hg88P+6pUE9Rsmxjbbq1V/9aIt9wsK1sN3nU1wIytxLyqzLKuc1tIiWFEk4ndtudbbV82KADRiPvGMEzOX7PqNRv7qzQREoDjZb/cWUValSIAWSOHV29WEg/GtZLiqSI2nef4MFId6zvrzrKHpxcQCAfCx9esikqD30HsnK8xKqJmYIoX8FTmOsgTkC2FFAPKFVFCukKKluLCqq7EQ+GjLzkW8U4YyczVIL45WvTd/kqhANNkoLA0egSGMvooDyBOwigDkCaitxRrQfm8tqL61AAT0UKcoiN4d6gkHoH3Nv26in+D3JtFpiP5DFIMt0HS7rFIRgHY5re13UFHPKUGFIrqY9WhGxZQZuCejYd0koxZNKyQgp8ty+4VK00emCEDTYafe3AYQ8EyjG0iOBUPD9EfEZRWyYw4lBgTNJhpCqIDiAPKcG0UA8gSUKtY2IGDqejdiFyyMkSsJshI9gCg7cavguygB5IduKR1AChQN/lUEoEEQ1SyglHc1IdKqv029lHgKCThay64veoDoiAsWYp3x1wf9QBmg+25Zq/ZpO26s3RAAtgC7X5FWyUJolnadZB4JtMhpm3KOqVVKwBxAabVbBH8H0X6+66P0M9fD85d0LYp0YVZWSw4FcYeEO1A6gDxnpJ0QAF0y2Bz5jRsaBf1vshcYvnpaWDdH4No/DEJSxVBmQ7IeupBdTH1vMQjgxlAm7sgEAOH951fgkhEOh/Fv8H28IKvcM3y905GxWLODrVpsEG2o4vYCJJeovNNB/tNJwsFaCJiARhM3AmQkGc4VMj9Sj+iTcXrJIgTiB0DGHHU1DAGJBow2ixnL2QZu2N0919UM31jn+PYWzH7EAgkBMNYE2Z0wA+Ij0GXniv2Knq1yDspZkboZQGC7JwD25k0fWF26DSF9lQWyBivOc230Q/7njZljwzOeIjPQYNjHjJef51YYZAl4pzH1qLJVEBDVnJdFOwsEGES9MvIhOuQq2GJa3mbfNciPmCwzQuZXiAXCokVYBN2g5dKDwDuwQE23y2q2ewJwz6yzJL/cn5o7OyT+FILRKKLR3DbV+42HABJ+b4x9m0NWqDxZmag0w75n+GaZYRv/RX+DDogQYU3rpBmJXK7QjW+wnb/RaDZ5+4aHeJFyNYszzW0FKKRTf659M8OWpEZQ82+tEXGj1r2aL+X7O11R+jOf9ypFBAhksVyjyaeG2mWOJImKoRlkANI2g/zlJUktibRXgV6gO8lKUApKjsTgioQsQ/IGqqsBCHQwAiAbBFfh1mSqPv4Sl1rnlRtxcikZU1Vkyktq8oauFGUIRpQWgeQHb9ZWVjRARWo2JayVXGlwpT9Td+v/W0VqeaXhIdRf09an+2hfkvRA60aHNq3H4vPFFzJGYyPOP2WRim/iNEVMdHBFNNco3fqm+lYXBDoYAagLDNvifh7InZV1p86Jyn4Q5ORLoQC6MLGRV7+yy1Z/kvOXbLVNvgL3nMaQjIZb8rXOnSAoxAH46xbFRthBjgLd34j2v/ett0xIQlIDmiWJTkh4orwBGwZpA3km8qig4xWpe+euCxaFRYNcrfh+VUagXpgt2Ah9kogab+cquT3f87QEKc30TiQoEbffNGuxiXtljBu9r7ZOxi9nOhAUqLwB85jsRu4JedTYpotUMaZtuo+N65wQFywX8c0kHYQ13kuCYZCHt5Al/7nG1dT2S/tuqCtjlTRgWQeg+HgEknORC1hsgBgEX0gRprwB85jSDkYAqnQAeQAmdxGxMmV2ntxFatwFIdM7VY0njftZp/ju62Qo8r82XKMvS//wIFmHrz3a33znv41roe7SBRlA3dXn/cST/H8W1l4v+2Qh4QY0kfcF0IEIEBABzVAEIA/IdjACkAdE6i3S+IQgKMLBy5a55GgvHBa/z6b3EkzvqHC0pIzjwr7ioJDpdR3j1ZSetNgAGtkZE/nf4AwGHAwy+g0WsHADpbHYQkmvtiqoEi4ImCglYACM+v8oAlA/fGo8FQ6gcQhdKA4A/r7WEWURp9toFvrOyPzkybfGc6TYGr6fs+Ca4e/V6HjqJ6qBnPe3k5ueJ4k+2N91Y2W6y4x3E3MS3VLSNcSjFAHANogmoFk6zHT97f1zu3cEat0JarwrcIoDaN4eKj7uRL7tNmbKI8fpjg+370YgLEcQGiv5+UnRaQ4GCf7lJuIXzLvmZy/UhAlHjI2Abp0KsuCbV5uQ1CzfVn+D+Jx4BBUju3K6j6IP0H0jFC+PdyWGY6Ocoyh6EODVQw4ICSwF6cLqsxYEFAGoBZKGboio2YpSMU2J77tphoZj3houwQphkl6IrC+nA8u5fuz8T8YN4+f3XPOzQAauOQJOzSYLqBfCUVqcZVrnysQCFLBBMilLjIYcvZ4ZhCdKQD/su3op9G2NpF3nHEYhAqUlA8tD2qLtm+vJjLOFvigRoIUAW7BqwR+Rezmg82+e7V7A6cYXcTLwlERl+dPCDotXPM+PKvaNm8+LLe+Xq9050wY/MHf6kEGeYfwPesK5JC0QpVOz4cARV5C/gMTS03tCDDlolDDgqgsd62ZasXzT62rq4dUcARuIOXBGRIV2Cw4rTZdVn7UhoDiA2jBp4E7jdAANVJbXY0lzBVP78uzpg2alXxgRWxju6Wg3wgKfC9f7cjgc/QXmv4GjJy0+bf6M4R+ky2V/UkdA8DmjkMDH7Yv2SzrwVa7Wk/FWGrqbEQE4o6GCc0tsP+mWeoazgqPS5YQgNIV6p2I7Lu7AW7mFbGCo7wEEtq9V0IEnDcm2GrFeFBuZ1EpCU1F2yRHi/0raiSWRaMn+pm7eP/6Ke3sUFlR1GiEL20w9ta3tflAI0suRYP4WN6Fn7LnJZGgz4k0c759eaDi28FwOCZGrk+sVqXiAFCzq/KsIQJ2gaVsPck3U3CtOWo/8+yLswSEcOnRDPF6+mdOHD3atThcWtve5Wi9sCw3Vtnldoghpoiu6jw1GJycd9APeu4gAOgekar2tsEv4r78lVZcfNS23yclhGupPe3m+7Wd2u4NkYRx7CjVs2HqO7/YHhBzjQ5RgL0ouFJR+v54QW/KtQrXRFuoptnXZzbuA4Os5qHQrB1BUjm1WzgXUS+dMHVGO9k8IAkXhmHxP+QI0MHmKADQAoNqPW18HULsPW+8gE9MhvSRUqbscU/4mi56jiK0+nmcctbXUNvgW7NGFUwBi3hN3X0x92vps0175f0o4vhwXYBKFgPyAgyQg4D+KUd3RDZUbsIGpVwSgAQC1lcf1SeGgmZGIyunA2ipEAthiQyNB5oHbtO8ZK0BheuGZXgnKUNnVxfMvc1URg3X4APSSm4xfTgrGPGpqpo9pUF31QkARgHrB03Ye5jNRsAKViANBp9GM9207vS9AT3S9p6QDZ1wZN+B0rShB15HQNaX41LU1IgAIEQAS3dJl1GduCOSzrnK/uV3eLURGoLY/8IAE+Fq7soHj/FMmDIApIb81LvEAhDCIfgAJQN+AKJAuoQKC0pCo47ODEYAq3VFmfdQBlVa53bK6BHCgTYyyUKDExNdd8NrTvFoEALafiEC/ywW/WxSlAEeGYTRNNax0AA1MQAcjAA1AI6/HhbICNFwPiz3To63fMrda7UtKqGi15nI2pBtemRz8gYXj65oFUP19A8J3Sq62iokVXokXoLD/wggoEaAmsGr8ruZcUuNZO/zZzIQgcSxOodajmQT5tAXcS++mTVgPARo24b3ar4DkvSXvP1hdfPbEJQN03Q0mwrCKXN9JhIN4B0MvxhKyNqUHCYhAtxiJRGOxo2pFUtZuoWPe6WAEQESAQD3dtNmOEg3oJluPtc7KJdB6ZKdpoMn9loCqQDRMJ8mnyAC6f3fEMFxfM4N50F0HsweHhcL3+75TalrmhiAgiMcSEvxZxSah+up8gNwTxLEX6lIQaOMQGLFwocnxLKUc+EJctP84EQ3rRNsn3QbxRfPXDzLzU4z/PcmFuA4xIMnvMCU6+2ZClKGKANQxxx2MADRTBKgDiPXdxkQlImmTLnHySb+Yjw4AN9lM+fR7uT4lGtDzamcNz1W2+r18epH9Rt3dGX/10h548B+dDlAiph9MlmxfWpJYpafvun5wBmnL3tWKeNgTn/9NdsL/zR3XD/siu5XRk5fuS7jUT6AI3XTP+cg3TTwDIQC+VxSJhMQduJbpMPv9jvy9gxGAZooAwUoR5V3dC7vmYpINSmL5gquR0JZ30/XlIwLABWfKp9/L9dn0aMB8elHVYpAPIFfrqXtE7+2h+dZCK5wiysK2B3BykuWW6RxAqUxWI0dzoqZmodDTtxjFYUHuapfnaJWG5dtybqDuelt805cyXRAZitykrRSB1aBV/UcjZrT6ix3311akbDQMGqmK4hScTBP57L35cgCZSlvwS8ZZv442XDdQcHp2ouJuO1lxgevYRPVBWHXNJvlJNQprxIs4D0AvRsjf4lR4kpet2hUyDGkOlsbvs8neIgeEpLgHXyONuKm8AatBq/qPrSus+n31q41BIJ+JypcDaI2h5Sls4bWs/7XS3HQP+r1MhF/N/nmG1x3WphP/1lobOAGoxuXEK4QAbIFq9N6l08eV1LVRVIC4DnM1/bj4Gs20y5/5rKt2OfCOPKjmZwSSDboBniTPWABqCmtaiaQoqlN88QyX035DIXH5XbBgtAT/VL86d66A3QfpNcx+MeKF9I1Sm6RNw2qgnIGqQ6varw5GAPLcl6qBqOaPhh14ar4h6FL7qluUSGNCXo5AWXiYEgHSb9duMX1HdADp7/l8opyrGkK6MXm9/qUjh4OmtJ+Naipnd8j31VXSouEGsCFXgQXa61VsfxWy+5IxCCOgEABPC4KEcr2n7jU0i+0VQrkxMo/R1hI/83inriJppKr9PN29ILi19uNcd4JXUiJA+u0cxdL4m+NR/bca/6KQWjHbF+TStV7Bbm6Iy2+OK9j1/U0QnGC3BwJBQBAcg/RBKQFzgCx9q34yni7Vbj6rVFOFWph5wqWpzWEGzLxa50SlHmTK1dulOiup9y246DQqN6KCZvhb5ehNL4R5rHp+neY8UH01RILMwGJM3Gr2gxgoApADoOlbjZjR9Csd+VPOBdiKlC0NiWwrQEu31TL1C12qhyPJs1EIUDexEFBbrUCgTBW+tpbnnc685P5i3zc2SKtBy7qmdAAZINX+0sEIQJUOoMlrspAiQO3JqHUnI3s3qHJr8ohqtZl1Iy1wN6nyQKcvb+bHnGQ1W+sre3qZnAcAIaibAOg++RG1Tp07RTtzNPIaH78CIQG806NWhepGBgIdjABsGxEgNwLlwUlkOQJlZiz3l1pYRpu5m839fs67ad6ZZBv11jUqNr94QuwPXVC4ycF9Na56X61Rto6f6AA4F0F4r2rZgLJLkzIM4uAXuY7RGf3kKjkhSCCAmbGLpFDPLqu+b4VAByMAzbMCJCqS2KD1BKsqx0LfCtTsbwikOTAgsFKXf1vT6nUNyrYCZNdZ1/eUFSC157LzpdNjZ4qjRRcHGT0c5nihRlxbPRJTykCJyvMNUnBXXZ5T2jtpFx/FSHHZzTHcdMEmfI4aNR/zn8QBcCCI7mUOBKlZFa7Eaxi/EfJDXQ3iASQ0SMQG/nTuGbfFHVhdOSDQwQhAFQeQAxD53EoUuyx6X5CoVySyA7BreLEL8qSxjSAWObMKFJR//pqGwlQbqwOA7WWnS7WGAnFlzTFBi7jnRzzH7QqyNtz52hXIgRsglQslcFalH98xY+Qn82cOXa6HzM2igQuuPP0A0nXU+VlaWkxPu9JspWsatYha+j3dRDygbcf0eziGEDo/HezQxTe7FFYlmW60HXx2MALQvBn7w9Sf466qvQFS71le9LUgm3AEQaV1sQRpDiAcMT2LJJViz5YLRdWbwZf6/uTkHnK94PuRaDEcslEGy6u5gfyrvVi7pPcG/Sd+1t/N171yzIa1i+S4w3j9ICJP87sF+O1rq30jWuv0Ifz5q7A/RyVNvOX4ktvfR7uvbXIrEhmuo2Z1jGVTFenrZXmVpAXT0sQCwCQUAagJsKrfHYwANE8EEGQmXG05DPx+YatkADD8Ir3j1XXutgAYhHMSrm0jm35X7NmunUxwpNWf65iTzO0gAUbmV+4vIL2wufHNmk0ooD9Q6ids9ivLNP9e841QWfG7IMY7hM0OdV0y53iE0aQIWE5uIKUEBK0MbUvXd82+lP2W1E87L8yfetLnNevP/i2OQNKxNIHMftaY76GwRPPpxALIicAVwn3lvDgYZRMZg1AU+KVxu3gDvQ7UkHwSFQgHoa6cEOhgBKB5IoBAMGGbS1lkH+pG+EJk9LdkieNvLngoNsJaF+KyBLKsd+Pi8qofLxwALPQja1a4r9YqXM+NuifKL8bl7UvT1fpjKz9cEI4N+/bbYoO/qlndreefkOBs8espMALxYgfKfVpFwIpLn15fqwk9YUtUTgSC96np6kdboUiZbYseRLtFiGHN+mv9DrbkhovVei/rhqfrwnVEGdZmaxenVhxAuqhhh4Q4kBVZ77m5OJFgbOnJjugmR4oV+JKjx+Vfgatt9eoaGaDa6v0rcIPN4wCkMxKnPnrK0osNT3+Y9f2sayfKQYwSN+ntz+PlNTvM4j2UrfDVkGkMD4Wje3Gy7+eu68eyD7eo+U76txwKmr5yMeu/ij0T9d0N3wcVnzd8c0ykpFPPRHzzSyDrren3an46q1cuNXv1GsJGHoMQCRewC8i8U7hX329R9pPs8kWGvhu7vZzI8xU9uVCy8oL/s+fNGPb37HIt+d3icA/DDBmuk1y3YPQoOJbROZvzotYW07XjjKX3oqkj7LGTl8EF8J9pGYbtpQ0aOd9N3/z1pcs7F0XsHTlQZFfN078N+HtjTeiBgrEz8lURvE+KyJOWDK4i6pnGeRw//pq8P27iQzt4emRfvu5LqztBlPtAaAGbT/Yin5yF5ifwj//y4u6/5t04NKM/Sbe9rT47BAFgAh3h3V3TTVhGKBNMwt4EXuWxk9WYnfnThj41ZtKSK9hFb8UiYAWx7IZ+9tjY4sVzY8PfThcfM2XJEBbKD2nnzyziKzFlrSeB3TkLrhnxXrpMtU92VX/yMgnqD/AduTYjWRArz+KvfkXcteMY2+4U/oBYmcHJRMWHnu2cPfeakXWayySY5uzYwnFhN/QIffqh69qcJBQqc+zkZQTSjJNgGmnlggsWFlXq5hX0ZRW76hnoGPbl7MHFnhWewuOc2zoySErxZuh2EbDm4HKKUgNMCUf2ppVyUj0Mk54pm4zYieLKcM46aaoT/ROx6ev65mq9Vrmpp2YJF9ADZaCvT162WpSCkmPAricikNOUdwM5f0yxY3TN28vTjR04YLWTERZ9reAv6EuljCI4bIQPLZmo/AC3xMXcrRg9adnZhu4PwePgQIhPL4u+ypV6K/jKu/I2yhcnSVCz/umYKUv/j2rvXfee80o+G0Gqlpb5m+pZy9S9zWs9b9KjO9mGs6vpab+Ego9kWn7FZOzDrnB5lSz+Hyj9JejmV82dPuT1xnZ4zJTlPyf13PWmFe4nC4UJ/sTznd+xG69APDgYdv9C2gm82FgR77MExs6ZNuyZXO2Mu3LZ95Al+viGdw1lO3m6P44cOROsUPRk2FmpexHkYQG7sI6oW0TZHyN5sB3qYRkLO9XztmePuX368P/kqr/mvTGxpb3gYmbpunmaHLghdnbq/SPjeAgKIHWeFbJCJziO7fId3PbmdS4xLrv+sq2ZetJ1/ja2rFtl0tmfcvtzIs919OVa6n4b/L+DuotdzwEx/d9Q7xcmPD3IgmTkDCTp6Szm5SaMCq+apjHPMK1uOPxsQIl5EKkXK82o/h3D808OR0omJJIVyw1fnwMV/GjBjCEfpdvmUx89cfH+tNOXPs5Cr8nO719GG5NDociPBHauk7gTuD3sGt4H82JD/geRM1Y6+xwNDM/h/WPJP9BdiIXQW1GMyjvZF/0KCAGE/hX0DAtYQ58wtuMhEafx7FvyrmwCmB55rfq72fUIGRGXZisUFiKyotLQDr4nNiSlaqlesNV+tWsCMGbS0onR4i4zYB+zACoTtHXYsrvEKzb9Hbb2SB7UN3tZdWz9KjuIaZrns0ueAsJ/C2IQLAY5mioQl9EXYJL7Y2WFPfueG0Z+s/XN6t/GTF66PBIpHiS7RPYV7B4ssNSnPOGb7GwspES8EuTU3mXB3pVIGHdmp9HKrqOu7wEi2N8dRn7N8dR6ICIKbrSgDv/JDubYCbF6/BPEnT1/2imP1VXPqIlLD7dM4x+IQrWQp653UqDeOg9STgiZbcfjSTe0Z1hPnBQp6nSbEKbU5WuWFdEqKzbNnDdj6KSqm1os5hvfuMv+Ho12Psx1BXbpOqvPs4hTdnzLpY7vv2Aa1kRKHQcimoGDUR3WEIExDB4ExH4bBL8FoP8PInwqUYYjzVCoi7gmZDFpwbzIGKStYL7Snaz6DBZX0BZcSTJ5CabTG2sUafWfaWi1esOt0SA7wwFmOPxDz0mx0rBqZIyShbaV7cdqJnGmn86ZMXRpc/o0Lrawj++Ye2OG2wliEGEfqWBH+DBRbrx9z6zcVH7ChCcj5UV22Couj5hu0VDeHYjEmJqTgPsEHXUtwU5TAT5W4FFQzoJz2LVddutydqGPLdP7z5zYyDrNY/mMSVJnf6Ot3xM+fSBnavZErBDBdZVmJd+dr737HlgG1Oq+Rl25pK9hGsNADFP8b6TXJv33oHzptyTjH/z41osahRnILivzw+/Epg0VDxZ1jn47bFnHuLAT6fkyLMP0ffvFubFhL6UrkvfHX7VsiOYZA9iAA5FJ6km3HTQRiBv+brzzQ7iIgUYoVIKlpE5iJQQWrgCuy/6a+mcZuvcqIxrJaM5kwygRsYn7QRcCYhxwCCSMdmxOJ/Y/4tEKHn7FRG5gzoSCieZXTJllJDD+tu86L8ydPvSSoIJt/KddE4BtDNug+QmxJ7u4Trw/Wey/xarcmf11J4C+I1tETz5hPbXOLIxAucSSEhTJ6GXYRWSVJdgt4+zI63C/+4zf77POX3Ut/e07YtWTYwYNqj+1IIDSdrCpGTPZmQcK4tbn/yCID4ILht8Lt/Awk3G0ZhqjLSvcHQSvgfiUdZKVVPkM6P8nD9HPNLwQhKg/+qFe0LgezC2WAo+JRYWIMxOtl6OO+ghC+V/N7fLRguuOxby57S5FAJoBe1hoa5W2l6Sd7uQ72Jpdq49mGf1BWBDd2wVeYycQfAcWAfHseidZXLJjyCUsdrCLVO0k8lv+r3VRPGAneS9gLymATA3r6W2Aw0DhaPwF/eCTfcx33qI/9e7Utepu5zfOumJhWcQMz8TyejbMiSEBRXVdwrajkxBdyAuUm41+padvGL8B8XeR99JEI80dQAzE7wB9ib4UvqU7ztXHw4wczjQNYJ6t9Dxnt5eaXmYaDQiuzbiUa59y76+0+YfbZ474Z3bZ1vrergnACDTZPbpanS3N6+7YZheSTncB6boysSWgEyTZlXTTAQyY8BLY9szuKxPAJDLvPpYovUTwj3fFKSWKhIwZSO8OC96d3+Sq87uBvGSh1YrFZBVkouH99G6TUixJjbkwXO43/hJiID4FstCQ1bF56y8wkAd0x39s9jVD67QCNL6l7fONcycu+oFlhm5DK79fNsteczQZhMZ5CqSc5xn6Z0B1FMq9HzCBgT4n/Y7oizzHqQR9/8DncixKu7KrnwnxECVkUBaJRSY+/Uqdn9JuMIfoihzbTvDOvbZrTLnj6sG1XLjrrKQAD9oNAfj1pXd2NozOu4dMa2/f1PcB177DTOwAjEqBNQiqs1MLMsMM8i+4qo2+2o9qoM08oaIAiZnf1I4tf/lPJpx/wbTnMfnVKi/AD1lMoqmWfrCIP6QnD2B0u2fetUP+V4Dqt6sqxDmn5x7mOCw901DEdhO2PecFzCAQwu5XALaHUfK9wK2fol85BWRGObj1vRRs2R5c73EMGPNg8QeYhjkBYr+nEPf6OIucbde4KfMXjpagjN7ypLdy1QhMtRUSBBXt138PPeSuvnliyxGFzNqu0ac2/xN21/ja2XsXNLU/YPc7Cuw7iE7vbKIqFnYutftWIWaVljeFmwGatvnxNbWDQtzkHwossTjcD/eyYE5s8IdNrW97em/MlUv3Rmk/Dc39ECHRcphozSuz48M2wbE9BsF8mvUiDjynY8HpGiB+FRFPWwFQGL7JEroBbjCBkvQiCMKhAeJvddOo2Uzev9NcgOfYz3O02ZVzp4/4x9jYIz82dWsalRzAMFbi2/GzOTNPaRERYbsiAELdu+9p7Y1R+idw7idAOL/HZHQTljuwwzJLwW6cN/jbb0Ehgpi7REm1Gpjcr9vO3DnXjmyXhEA8+EIh7zcg529h03tUN/um5lgQTdh0CONmFslyBLqn2Tj24N8veKd/tlUgKGsF5r+vUNb9DpvdS5oVPgficWZN7qA5KygQKVxni+f6NxqWfZNYc8ZNefQ0GJC7sPIQLuJHxLTquMn/YFw+fFYL+AxsFwQg8NbSjZ/S2aEA/CAzFMGnN2B3mcvaVL45k9Le3k0TAse18ejz7/ST8QXzrj3tf+1lnCLrI/aBQKFDU8441ddDFuKTS8B7kLNE/wSh2AdkPgcE3CX7nQzi27YkGL2DgKkHTFM/krKXGVaYpCSIBVXcQXPgJ+2IWMGu/6Lnu5fMmz7sBalvVOyxYstz38MdY4d4RXlMt4ySsBm+RHhW/ENum3PV4AnNaTfXu22WAPycDDNdneIf4xd7GgA7Bta+VAaQ0si2bzY+10Q1916GEDi41BIsxBl7t9c8Y6+5bbTm+7Lrh8POb9HpXMLa6FxT1s9i9Tku3HvAJfoS/4bvYgw4C2KxuzjwCPLLFYhNKOOog5OF/QfxU7wfR4adICUXYwX4PrtxoLkvxPjEEkS7FSD+7z0jdPWC2MkV4656dDQKxYEEiS6Cq70XUWQniMMn+F+exGGnd6JvOETatl37+HnTTvlzIfqRrqPNEQBx33V17zTks9PFMUYCULLNMOmOq8+mQUAWuyhCPSf5BTXc7RnaXeIe27TaWv8tSe9ValuD2ZkvAZkODHbwbC4QDBIkA5k5KMRbSODVX0kWsg977hkg/oA04ge7fZXmHi7yQwKjFjko+Si3A8rD8cj/P0RN32wFXxpCQpBQGsqu/5rn2ZfMmzHi2cAd2zdviERLfiGcRSJR/iaM7ROIGROlf4gry7FNhkNW5KeINf+C530Rf8gZc2Inin6nIFebIQCjJi9kkkKjgNPPoLplYk5prna1IBBqp5WklYUgykrY3Yd8N3HnvKtPfaetDnfChFsidukOJyGzn4/J9keioNvqJpzqtcj4xBHgD+w/7jreP0DkvVAHn8KOWhYQCrBL9CLynV39S0zAz/HmU6RrWAMfsB9c0jDgsq8gX7YVoLkwqdr14yglb4mb2jXi/z/uqsd+jsPwTAhPP5b6R7S9Jzu9ZjvJu0HKHenzMUIUeC7juRfLw04hK3y07STu66W/eXahfD62OQE4G81tOGROwMh+KjJZlyonl+bCXL2fJwSyRINNcF2PgkH39rbcv8diI1l4beMKPPl082J6c7gQrhTibxUDZQxY1SUg6hWcbJ5mr92Znz/FBwCtvgOLn/JBdlznC2jAXyB4z+MtTAYh7zscJX4sa+9A4gKKCr3pZIkhb7iafcn8aSP+KhA9L7a8Hwj9PhtdJwjNWiwRx1F2frSo8/7xys0vwipcius0u7/RnfGscb3kT0wjPA8CdxCig/x//Oxpg58qxOxsMwLwmyuX905a/kXs+OdC7QJ7rVLoFWJKm1ZHmiWG7QSzvJfZeh5G/nysRuRd0ypv4lsiDnIu4Ex251MNy9RdRzz5tiK+VMvaEeec1ezqD4LoxbDtQ1Cw9RStvoxJLp79AyH+PsfRP0AB+D3iP07h4UEQCIKf4DThCCAKQdlC/RFuxHO9BEHoc+KGPk12/fFTlh+LAvsIgpZeQsO/B+3fKK3ChT3ETj8fEWEoGWemiSPXuNij4yzDmi39wQrwCATtBkO3/gKhKknE4+fPnTaozpwPjRlDqxMAMeX1+E7odNi4SbBGuwuFVojfmClr4bJQZGGTRf5F7iT+QHsWe9STmuU+h5mqVcyIIueXueFT8bS8CiT5NkSplvZdtOiyeInIe8J37YfQ0uO9Z/6I3TRYT0IYQKyvCc++ETPx5wzoRMqfQLkyCogIUHCkl5kJCCkeg+RXeNtz/AvnXz3kr0Gikah2qxkK/5I+imzPknfOAbZD6OdJQnwIWT5nzrQhd6ZnV3Iwlr0TWQ7Cn1hl1vwblR/BO5+7untUofQ2rUoAxl65+LtayJrOhAySBaZk/PR0t81PWcyCaIIwsKobWHz/oqf/xDb+Qtjy3/lGc1ctKqCoIFGJK9312NuNX+imeaiw0LI7C3sv60V+S58CJPecFXTrpkQi/ng4GvlzUXGXvVPZyijKfyDg33h3FrvqWOJwjmc31Vt6swm4EdchctOf75RXXL3gptPXCCL3+k/4vnCk0+lkg3oeYA5E1C2Ftf8CCX8sI7sDpWxv+roWgnHY3BmDyRuRusbGHt+Z0T4bCkXxaCWE2I7/E1Fi9LzY0ILpalqFABAqS7BMaAJx5xfjftk9oOisJnVtPxBIEQOJPUA7bYteKjinT6ITJaBFQl/Fh30VJrSNvmlgR/c2kX+wnKy+cSNixr2klzA7R+Jb1q5Ldkv0dHr0KHJrpkWX8Gi7a+JFTHU7oK0XHYTII0nwXiLuyPKrr8IV90PiiJ+NW6VP3xM7Kj5q0rJdCP+9nI5FkOXL6F8xsvyfQmXR39trEiPDkaL7fLgCuVLsftpZrHDrL7CsCLHyvedc25kyf+bWlGkSKm1Z1sehcCRKDoALIUbrUfbdQT9NdvbFiALPQBBmix4DuD7l9O9/4oLRB2T8kM+LPbYn1gvyRNgfV2hrHr8ndladeRGDQTbyT4sTgHMnLz2CrGxXw+7/oJD21EaOUxUvMARkwYoHpsRUyc4sXIKglCCZmNpY2JLZwCWg2SZajmAXLUE5Fq+epIx8VvBWOZVUSNcoR0ATb2lav6rnVBTE92/BHLxe3qfYWgmp5bNCIrPgRGzqLCdWf61ueBuNpJa0/USF6xZ9LYlBuxClGXKs71FmV97fm358j410DzgEUnehOwgsTUIcmk4MQF7hUr5ktLHeZtd7hKiNmbz8sJBl/pKK0TG4s+jnzXio/wCRBMKon4FUL7s+B56KZ6JzPn0/zDIjP5N+JBOJi+fNGHIT77bK1WIEYNRlC7uaIfMygjJw0TSLGXyrDEg10hYgwLJK/V/VmfTvquUmrHymQOpe8Jc/Nf33U/fTZfhMfQ1wVmTn4D8Jr8WDh0dxKIlERpbzfTXUhMzI3v84KUh0F/8lkwp5BZOa6Zu9fc04lEpOgnodyA4diAeNgZwQvUDPYCdfxnJ15vwZwz+Q98fHlk/iyVQ4jyBXpGPH34DOXIVG/4/05TX6vALC+Ss+UYMFg+FUY+8sz9PngCc7Ihpsgvn58ZzpwxqVNboxfc8ui4BX+KsqRdSNUMeDRe5SyF94GLftGtlRU/9XdbPm78L3HmQSfMJF3Cjii+T424Gg/O/LTelLYA70PE4uCn0O1/EmO/PfyOEwVjf8nXl2HhzNEUHsBNYDISz1XaIXgf8gT2n8biPuTJ5fleoN5P91KFQ0nfvvxRPlb8DqkzMwtJ/j2SeTYO1kvBTec33zaYjWN7w/B+5pBpxxGfgxDm4kBqG6C2tkl2TcPZP2tz8CIDKc06XyIo6Iuhy5qHPN/Hb1AVU9UxBoHgRAqwBv05+1ayNRQ2dk771Ym3vhUXe669sb4SjehkiUY2L8PySOlRCHERCDYnbiWhUIMRGnHhSiK2Drr5w3feiS7EK0f6L8plgxMZlX45S0ayQSORAz3u5zY6c8PWbyksNCodAedLQc+eg5ROJ76csvcWU+wUsmX4ZQLPCT/teVcb3VRICqwPjsYTTt+zmTFu6kF/t3YeoYCwWNiPZWXQoCbQ0CsrvL2hQEB9GjJHQdwI6+KzswiV7M5bDpSZCyP/0O0rSJzCE2fcyRsuuXY4G4G7v+r2+/6pRXao7twKN/Lmcunox839XxnF6mZ05HOPncKDVH7X/AsMN1y+pCJZzJYBajmNwPDf88xINhFufG+Z6tby4v/uUdV5/w1Bsv/LHVnLACIaTmQBr7exxZYdH83kFu+j0CDXFjK1DlFQS2MQTEuiEKPWT2Fb7j3WeErBiEwYIzEL7iXyDtk47rLlow/ZR/S1cnkG7MJUlxdkLWUfNfC1lfffkoCsbjhR1hhx99W2zQgnFTlt+IPf83sPp/QB5Zh+7gwpRYrMchKjZKzhvtaNHNCy5v/fyABSEAYycvXUJGk6EcTLGNp1E1ryDQPAgIIYB1X4GVYRPye1T33OllZrelaZOlcLoRq2gqiEz2IGOt7zhnzZ5+ysvpVsfHlu6ua6Hn4S4knmWt43vHm752K1aAQyAIVC22f/esULTkUE6VWkOZ8bNjgxam32/tz8IQgElLfgyFfBT5qSiX7NTag1LtKQg0FQIi57MrxxEQTvIT9msLrhuZydqLD/8ByA2LMd8NEFMna168+t6p0N0fZh/wMT722Dm4Jd9OTALPk38iI/SUkG4+iShR5jiJpziw5JdYQY6wvcTLt00e9ElT+1qI9wpiBZg7Y9jToyYtviSkh2cBFQsAFqJvqg4FgVaHQEqRaKAPcKz5VcgviTpKNvbwk97qWZHi4gGVlZvnkbKrkt3zAnQDe5fY3jQ6en66s2Xa63etcvcjGCk8FCnip3ARL0laMY5XO5Zovs9mTTwec6SGWXDbXwXhANLDGDNxyaUcunAtGhbx00jfVp8KAtsVBGRnJwJvUF/jnSdWefsdARLfgMPOdXAHU/AZ2BsrwEe4OA0mi7h49B3CSoch8AfPmXZy5vSk8ROfGKCHPLwarb4yeBEtQP7ncFU4Fb1BweL5mwvYglkBpCOv/WPhC/sfNrwYZcphigA0d2rU+9sCApKDDxfdjw07MmmT1Re09f4SiZTsxeEuYXwMOFDVPA4rQXfk+R7scV9ynBoZg9wvsR5UHvKDof965flFgSLs1X88uPHAH536Npi/D9RhDeVvBvl/A/Kv2xbjqqvNgnIA0sioUa+FjLJP51iRyDnKAagusG+P95FaM6sl86VqIFu5veDbdsb9idyfcu5Bc++6L6C+X074can9Vf+p4X5fTjStyFSIQhK9wDFs9lcSWPTTwJSIqMu7f0Ozt56sPcc6bmLxnKuGnANQMgCRyMaB3GhL+RWyV1/Nmcx+1uTvF/yOo6XXW/dCTUdUhTI2uS71YmtBQBC86h9+/nwTE3jgnS+LXVxt+W2TSAOfbl/8urc6eqD25jfJd7QQKx8HPMK+2DvRhFOn/OMpD9LEQdx3xUyW4hLTn601zlQ70i928mDMKPIkgu95YgXuwxsPF/ZQDPm9LBGvuDPsRCbbVvKtUCRSlkhU3o05byY2/NeARTf6v9nV3B/zDr7+4UOIbsXs759027RBf2rd0TS9tRYhANKdX3FkdNT1F6PxPEZ5BDZ9glrkTdnxAsQU5BStdxDuK8E3ZM71RT79DDXupxyk+RkxbqtczfyaAzI50861fcNKEPiSMDkG1OYcNOkfLq5R+eSdMLpxi4QbYY71llOXOiMnd+MsvG4cYyxnIfaitZ6gf2/a7UrD3aAyJRCKkMTJZ4iOcBBVBCJNLKT+poiVMj6hQClClCJwEk4MS76OVt4BYZ82POMxiVpccPWw98+b+shQw4osljUr4oDtxGfgtB+yrOhlHCVQ4Sa8gUZYPw6Enyd9otwy3dKu033rz5TvaifLr5sdO+VyebY9XC1GAGTwYyY+1l83ncfRCXxPiQPbbjmkdnbZkUXlA7I7tqTWIT2W/h5o+w5hNHz6XxLAR5osPNhNjk9zOfbM0DlVye/DoaQ9QESQ1e8EGyC+9lE83sIgUEAACMCRQByi/CTaT4JxNDmteDMYvRE83sA5DmtpYx3l1ss9QmaTph6u1CwvJISCk4h7mIbei/r6gan9qKMv5fqArtKmZIPuBBZHQWJOdkoRLWFPBLflc+slhCP4H2KRiUqUA0CkH4Qr+5/yj+PUzVcZzxvr37f/t2jRSHfslKUcIRY9g6QcT67+r31m2XdCz+Ksc7hkIKI9wgacuzkx6GQ89spwFJo1+6rBF4yLLX88ZIZPJN06vJD3IOWOR44ohiL8+Lbpg1/Y2qe2/S0bei3S03MnLx6IDfQJZKwBEpChrtaBgCCKhJsKOiCGxfmQY6thXSUizfgQxOaADA/kMncDQfbm364U/hYLohdIFRxkmto5gyp4HcySK/jI/Erdq/oLSmbwMfM9QEj5I1xGEHqbpA5RlK2HaqyFkMgR3HAd/uf8XsmO/DWReuthUDYbvhl3dNuyTM10baMLnAVstyf+/J1A7y6MEMLgmZQlOkfn5FWN7N8+EYFGBYTqGzIZrfMt8xu/MrFKKypaIym4q3WYH5KtJxLxHsVEd6REIgKrWUg8z1ghcxnrNYjYo3+ycCsRGTojDq3VjNDeQAB/f++fVijaW/QHyUT5155tn9fcY+Zr9q+lf7c4AZAB4Cl4hKabywjGKBV5Ul0tBwGRawVxyZP3Oa085+nes4btrfAAPoiyM5v2gUz6/iDbLnz2lJBWWQTBjgmSpj6lf1UIL18Ldm3dtbey5kIqUstQyEoq20+wSIjz1ySxyEbKkttf20A31lByHQi5iUFu4X45QjcH82pvpQ/XaEpXx1+xtAdCy2K4gCPxzJPIwRvJFHyQaYZ/JJuWwDQNH0RaMvMkp8yZNnj6mInLDgqFw7+mzJeOYdwLgfmsKe1vy3dSkG+FHoyZvHikYYbvBZJRAaa6Cg8ByX4LcryH2ekm5PaXddfrA9N8FLvqURylRioqq7PI/rLIxWOTsnSiJRC9mWMTmV2IQvA/34TXD/h9+Z6qW6iZFOBg5McRXS5Mx+M31DLptI3K6GGdr6vhdy++/V4osgw2/zDCeWWBSpTgdwESmj3tPwhG+8nmJcSAz0/NaPLAW68cubqh9tr685QM1wq9nDd9+EK0pJchV7IWq2axFdrtKE0ITGFh17medycA3os9awnI/xeUVVfgnHWIhMJKDkZRbslnigi3QeSXCUtzIhApQTrZhUWHJBYlCTYTuuUkE2uJPfmNu3LV0HyRf1zsseGrtf3/UZm03zlv6mPX0VBmId56zcjVCUcbxu7+Eso8Yf2/RztoHUJhCiE2eQtEKSgUiJDgAV5F+MD2sLYyAGitwSAO3EDI8MVKKdgCECdFlmyXIH2QjUZk2ja5wzdx6KLEDDgY137KS7qXzbt2+Bv5VBWL+cZKbzlp6azLAi4JuEhdWAJ+fdvUk+/OrkMU11bIfyxI5CEHCKe4qjW+7hyMpn8qepWjfD95sf3VqmUc4y3m0O36ajUOIA2lNaYzEXPKgwE1Td9Un4WBAOYqtigr2OUDMbqN7vCNHq1OPD6OeJq/mrVzcYWxYVC+yC9NrfEeO45TdS6D89noJu2zAxOgiKG+dh3afFF+Zq55M0/+EsXhENx935Y2JegnHC7qCfKPdvr1PyeZiB88OzZkYXtAfhl0q3MA0qjkCzTC1hLlIyDQUFd9EAiUmmAqzjfLbM2bfPv04f+pr3z6maQY3xRNDKxwbPYc7zhSa9+JKAENcC5EfbCZQzbms7tbHNLx5zKty0npcN/0+5JtmMSeT5Ciaw+MKKtcz7507rSh96aft5fPVucABHASYukk/F8RGvm2JGFQl4JALggEOzAmQt9xR61+zxmRL/KfR1beNXr5s8mE/XrI1bH561jo4pJvHycCfwaqRBDf3hhYpHy9lLK4+Fa/5EQkgn2H4/t0Nwd6HtkekV9GvE04gDSox3AuIH5jnIZq7iiKHnUpCAgERMMfaNvJ02drzsX5Ir68C0t/PMk9ReEcwcpBtG7YYNd/j+934OF0DdaPUEqu91aiTXyGtnamwV0dP3lEIQ/ckL5sD9c24QDSgJl3NSec+N4vMEutT7F66Sfqs6NCQJxquOKObccqzPVD8kX+MRcv7SVsP9LCVETLzhg57yPV1rliMQDxd+IDIuDNk9x+gSJR85cS3bAUDvQg1l53fI1ulEC2jgb3bcoBpIGtfATSkOjYn8LyE3f/ATEH5+NR93/5QGPCLWSiXpc8M2xFJyaTiUtNwzgbInIcHOV6PB7Owc2YJJzGS0QnvUQc0wbPMR7l+V7UXe4ZDtl4PVJ5R3+JcnELHn67zYmd2GZi9fMZf3PLbFMOIN35lI+AewkWLE/s2YW/Us4kUrewl7n/pcrwsPDNqxrrhYDMh+iCMA0vS7rOsfkiv3jw6Zu93RAY5KTcb+MqPAOh9mFk+zhzXcpB2otg84/hOO3pfH/Z86yHsOvNxzxKzIJW4tv+bNouEcIDt/BUL614Tb0dbYcPJTqkTVyv/f3hV/b/0UgLW+0R4hLatCuF4JLGGa+3IMZbEDrwePP9BOwggSp+OYqgzcGnfCdHO9/lGUoISWTEifGmRLNSB/UISyriiciN1E63pI2m9U69VRsCAmNgznFeySnuytUX3jHrzAYTZkj23cdkkvkAAAvbSURBVIO/f8IIKxp9iDD9T/DSe4kJOpZ56gHyc6Kx/yfs/YfxKX7RspjClIkwl/0J7IEpcP+GGfogywz3wqlnL8J8HzGTodHXz/iJBDF1qKtNLWU5SbXH29Zc3DHPzTePQLCri4MI/+QdFtNqkPlDZvG/8glKf4YM+BWs5UZ8urbYWiheFPLknLnUBfpXho0IR9hFTdcr8TyjBOzvguIY268cNqn3YRH1YxX1A/ElvVMP/nWjPY48lPUF+RCPtcCuDOmiUXXlAwGx7QeHbLyHiW+C5JXM5y0pM/byx0uNqPc+mXaJzkus4UDSo33DuAWifyRzQXYu/yyiCt60jBCxJ97pvu79y/C0kZw4fLTsLczVufzpYVjWXoT6PbnyncrFEhWYb/vtqVybIgACWEnAaLj2vZymOry+MwZkR5ajnEjmwM7tv4XS529Euf/VcCvfXb3C/KoFJlTnlOMSp1LrTrN9DN3cEXllVwD4HdrfA1XTjhCDMnYUQlZTXEfK3z7tc9+elk3zxhJwU7D9BP487LvmReJ8k0+N46967Bhk/BM5Zfc9k9M0me9bxKOPdfIEdU6BWP+Nf12xAHyl6e5RvmfGUAiehrn5n8QMXUhM4Z9w6ilNJiunkop7Wj5ttvcybY4ACMAlmUiRp+EtGP5pTSIgLLns+kS7fcXxTI/AkP+x0lz/aqGPTW7MxBNgYq3S9upJtOtOmm/uRfe+B2uwN/3cBZagDxF3adNTwC2IH35H5RRE1ic9/nrfc6aued+dkw+hvuCChUXxzpGb4BjGCtfAHq/ZycR01Pm7c9z8zwAm3F9inCSkhtubK7s8cfpLcehfj0vv2RAEiZN4FbHgu8zJOsdwj5o7ebD4BXT4q00SAJkVUfAQ6Pkg4sBPJG5AEF/cMpn8d2HN706a/h/viA37oi3P4FlEmIUjkQF60tlbN419WZf7wIASf2/0saAKshMKIegInIIo+mQOmct/6r772/xPv/X18VMeuTlS1GUC6bhfgOD3RW+wM0SUUGD/PLTYU+ACdgLBN7qudxT5O2YgGpzAWkEUcCYSujMIbvJQIQoQiVd13Rl7y5Qhr7flddOafWuzBECAMOqiB3saxUV3o8D5ARP6EnFhD5Gc/bHswxpaE1iFaEsIm2N4O6G02AtCJjsSREGHKOh90SlEDbP9EYVg13edCpB01maz4roHYmcQz5/fJUk1y7zIJxy33S8ZL+cIbW0RIQ9PQkSLOEb7FTiu+0g7dguww+En+SwcwG/JSv9/wLUPsr6Y9M42TWM3Uhp+RcqiJ3IlBcmvJ+2zVJsmAALyUbH5xSG7Z9nsmcM+bZ9TkFJqOUbFAEMPfQfl477slhAFfw8mh7zUZrFoyuUSRWNGfNgOlI3C4UhWIhDzZTbkS+fPHPb3fOZw/OTFB2tmdAwsfG8i767HYedsjt0+A30P+4B7BnC5kqy9A6VuMvH+Hl1AN3QvZ0nd+O1fBnGIkK57mihpCRmeNvuqQVPzabcjlgGW6mqLEBA9SInr9mfx70aKrIEoGPeG/d0NwrAj/e2BBCEx64HBNCAKWCIC82kbIAzSLxBS5PB1yGw3W2Z01q2xE/La9cdMWnoBup+r2fGjIvpBPFZ6mvMrVL534dP/NTb959Hej4UQoFcRk6yegLhMIN8BQT7mnkRCJiEIm+EEbCKIfr9xy8bZ99/4C2w96soFAUUAckGljd6LwQ5/oZm9QglvJ7wV9gTP9gzEB83fmdQWfclvUYqSDAZCrBCQiiqOQX60htIxC/GTIOoST3euWTB95L/zBee4KY+cjLjwKL77X+qGv5R8hROE+yH5x18Yzgzf9N43PH0JO/wBJCC9FGHpOohBEQrhf8Nq3AJFnIt938Ku/7GreyfPj53ybr5td9RyKd6yo45+Oxt31eESoviUf/9Id19Mp55T2TukWzui6NpN8/Q9fEPbDZZgB4hEX5CnNKVfSOXBF7YhUD4KgUj9kL/czPxJV93Ap+zAkCBYbUm04dp2JVYbcuL7t8ybMfS5Bl7OPJbEnHddP3gzWv0jgghAz+vsav6D2An7RCLFI9jVeyWKtTeLNkW6+2byBzhq+UnCfFEqTqf1mSSY2ce1k4c7njeC3JM7eo6+ZP7MU/IyLWY60UG/KA6gHU/8hAm3RNwefUo914A7MPoz2QM4/GJHWIQBUABxcCIVt98NNO4C7pN2G1uF5OdHY9/gBVeRiuD0t/D1I+r+K8bZP+av3Q8i93bFv/JKmj2KvH6So38xPZiPj0UEx63XkflHhaKRk8LrK26Id7IOIplcBCJxN1xCP7gEySQ8ijHcjbjQA1n/jXiJfsRdl0FI1JU3BBQByBtU7augJMfEd6GYDP2dfdPvjrquC0Si1MQDEv8Kcv+Tzb+OC9EC/1rDYd9nl3U/dazVny6Ija6Vcjv79Ytij/X8TKvctCg2Min3z4stPVrTw39AV9BX7Prs6lrSjj9EYu/1mH7HQZT4nbhh7rTBl46bsnwqSD8RfcDzIPwTePzdKO9AvLAL48Jt6DcmtPjv7mxj5+5lj7+tflcEoK3OTDvp1/jY8h+BtFeA0PtBUf5nOtqZZnnlF4nOkbfC0eLdyOo7DUTGLz90PIQFvHYvp9yp6DK+j9XDxpZ/AqToLCtUdLr4gSBmTCatx0Ay9ZyKaLCBgwAumxsbtKCdgKvVh6EIQKuDvGM0KHqJkO9ikjMvBbmjsPjoCXDbTSaeMTzvXNfQ30Del0zFf7E951IO3HwSPUI/Dg/5Gs+oq1HuXQsXUsLzd4kVGI4fP7H74T3x/X/fMczDI7p5aNKueC/fjMAdA+qNHyXRLOpSECgsBH6LCRP+/HFOzfkFugYr6SRngtSiWxiA4m4ndu2P0Tes5Pv++ArsgkPUGk70sbHd78nuvwE24GWCeT4g1uNQypSx74d4vjoaLfkuBODleVcNvuOVZx9Y8frfFzYYOVjYkbW/2vLQ9rS/QasRtSwEKr5aRci19olYFfhfQ614JPg/ici7tWIqxEx5TFyPXAEL/z+YfiQEfRI7PEE+lX/zPPtlCMEUFH7reP5PUUiGraJRHN11Rrxi86sc5DmhZXvfsWpXBKBjzXerjFZSZkc142LHTb4vMqYZihyGlfB4uIDbxHsPE+SnYTNRxs5/Ic8dIQqQCs4G9C4C8X/IDw4l1c/HnHmT68Sfxtrwpm0nptqJxLG3zRj0SasMooM0onQAHWSit8UwOYnnJ+Tfe5ydX0L4KnFW+pxAnd3xFYij9TeQ739PvzpBIMaL0xIKwGlYIN4hK8yDyPtWMl7xyznTT7nvSKItn43FCPtWV6EhoDiAQkNU1ZeBwJzYyX9B+XebuAXD5hfhqbibayduRTzYgmgQhu2/GHPiv2H13xSzH0TgMnb+wyEEPmm818MxvCqVKeTPgLTgXxQBKDhIVYXZEHAq41eRg/8tlHlBmjbOLaw0fP3yQBeAiYDPCw3fvwVdQBzTXqSoqNP5KAZXcsbhaeQG/G92Xep74SGgRIDCw1TVWAMCE6Y9/kO0gX8GyYtAbnLy+SMw7f0MNv9ngWnQiU9G3v83fv9nwjG8i/X/9jkzT/m8RjXqZwtAQBGAFgCqqrI2BMZPXT4dhJ8kHnyw9h/gQTjK881F4XC0JyG8c267atD42m+pOy0NASUCtDSEVf0BBIo6Ra8lvPcVYf2xA+7m+cZNfC3Brl/h6tr9CkzbBgKKAGwbuHe4Vm+85LhyFP3n4e1L8JCnhSPF38fG/w0hRSNw5X2pwwGkjQxYEYA2MhEdoRtzpg96FQJwNeG7Ppl5/+AkK344O3bKkx1h7G11jCofQFudmXbar6LOG2+Jb+725pxpg8gboC4FAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQEFAQUBBQFN+380r7m0QZsC8QAAAABJRU5ErkJggg==" alt="TOBOLA Health Care Services" />
+    </div>
+    <h1>Employment Application</h1>
+    <p>Because We Care — Join our dedicated healthcare team</p>
+  </div>
+</div>
+
+<!-- STEPPER -->
+<div class="stepper-wrapper">
+  <div class="stepper">
+    <div class="step-indicator active" onclick="goToStep(0)">
+      <div class="step-number"><span class="step-num-text">1</span></div>
+      <div class="step-label">Applicant Info</div>
+    </div>
+    <div class="step-indicator" onclick="goToStep(1)">
+      <div class="step-number"><span class="step-num-text">2</span></div>
+      <div class="step-label">Education</div>
+    </div>
+    <div class="step-indicator" onclick="goToStep(2)">
+      <div class="step-number"><span class="step-num-text">3</span></div>
+      <div class="step-label">References</div>
+    </div>
+    <div class="step-indicator" onclick="goToStep(3)">
+      <div class="step-number"><span class="step-num-text">4</span></div>
+      <div class="step-label">Employment</div>
+    </div>
+    <div class="step-indicator" onclick="goToStep(4)">
+      <div class="step-number"><span class="step-num-text">5</span></div>
+      <div class="step-label">Military</div>
+    </div>
+    <div class="step-indicator" onclick="goToStep(5)">
+      <div class="step-number"><span class="step-num-text">6</span></div>
+      <div class="step-label">Review & Sign</div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="form-container" id="formContainer">
+
+  <!-- ════════ STEP 1: APPLICANT INFO ════════ -->
+  <div class="form-section active" data-step="0">
+    <div class="section-card">
+      <div class="section-title">Applicant Information</div>
+      <div class="section-subtitle">Please fill in your personal details accurately. Fields marked with <span style="color:var(--error)">*</span> are required.</div>
+
+      <div class="form-row cols-2-1">
+        <div class="form-group">
+          <label>Last Name <span class="required">*</span></label>
+          <input type="text" name="lastName" required placeholder="Last name" />
+          <span class="error-message">Last name is required</span>
+        </div>
+        <div class="form-group">
+          <label>M.I.</label>
+          <input type="text" name="middleInitial" maxlength="1" placeholder="M.I." />
+        </div>
+      </div>
+
+      <div class="form-row cols-2">
+        <div class="form-group">
+          <label>First Name <span class="required">*</span></label>
+          <input type="text" name="firstName" required placeholder="First name" />
+          <span class="error-message">First name is required</span>
+        </div>
+        <div class="form-group">
+          <label>Application Date</label>
+          <input type="date" name="applicationDate" />
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="form-row cols-3-1">
+        <div class="form-group">
+          <label>Street Address <span class="required">*</span></label>
+          <input type="text" name="streetAddress" required placeholder="123 Main Street" />
+          <span class="error-message">Street address is required</span>
+        </div>
+        <div class="form-group">
+          <label>Apt/Unit #</label>
+          <input type="text" name="aptUnit" placeholder="Apt #" />
+        </div>
+      </div>
+
+      <div class="form-row cols-3">
+        <div class="form-group">
+          <label>City <span class="required">*</span></label>
+          <input type="text" name="city" required placeholder="City" />
+          <span class="error-message">City is required</span>
+        </div>
+        <div class="form-group">
+          <label>State <span class="required">*</span></label>
+          <input type="text" name="state" required placeholder="State" />
+          <span class="error-message">State is required</span>
+        </div>
+        <div class="form-group">
+          <label>ZIP Code <span class="required">*</span></label>
+          <input type="text" name="zip" required placeholder="ZIP" />
+          <span class="error-message">ZIP is required</span>
+        </div>
+      </div>
+
+      <div class="form-row cols-2">
+        <div class="form-group">
+          <label>Phone <span class="required">*</span></label>
+          <input type="tel" name="phone" required placeholder="(555) 123-4567" />
+          <span class="error-message">Phone number is required</span>
+        </div>
+        <div class="form-group">
+          <label>Email Address <span class="required">*</span></label>
+          <input type="email" name="email" required placeholder="you@example.com" />
+          <span class="error-message">Valid email is required</span>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="form-row cols-3">
+        <div class="form-group">
+          <label>Date Available</label>
+          <input type="date" name="dateAvailable" />
+        </div>
+        <div class="form-group">
+          <label>SSN (Last 4)</label>
+          <input type="text" name="ssnLast4" maxlength="4" placeholder="0000" />
+        </div>
+        <div class="form-group">
+          <label>Desired Salary Range</label>
+          <input type="text" name="desiredSalary" placeholder="e.g., $15–$20/hr" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Position Applied For <span class="required">*</span></label>
+          <input type="text" name="positionApplied" required placeholder="e.g., CNA, LVN, RN" />
+          <span class="error-message">Position is required</span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <span class="inline-label">Shift Applied For</span>
+          <div class="option-group">
+            <label><input type="checkbox" name="shiftDay" value="Day" /><span>Day</span></label>
+            <label><input type="checkbox" name="shiftEvening" value="Evening" /><span>Evening</span></label>
+            <label><input type="checkbox" name="shiftNight" value="Night" /><span>Night</span></label>
+            <label><input type="checkbox" name="shiftFullTime" value="Full Time" /><span>Full Time</span></label>
+            <label><input type="checkbox" name="shiftPartTime" value="Part Time" /><span>Part Time</span></label>
+            <label><input type="checkbox" name="shiftWeekend" value="Weekend" /><span>Weekend</span></label>
+            <label><input type="checkbox" name="shiftPRN" value="PRN / Sub" /><span>PRN / Sub</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="form-row cols-2">
+        <div class="form-group">
+          <span class="inline-label">Are you a citizen of the United States?</span>
+          <div class="option-group">
+            <label><input type="radio" name="usCitizen" value="Yes" /><span>Yes</span></label>
+            <label><input type="radio" name="usCitizen" value="No" /><span>No</span></label>
+          </div>
+        </div>
+        <div class="form-group">
+          <span class="inline-label">If no, are you authorized to work in the U.S.?</span>
+          <div class="option-group">
+            <label><input type="radio" name="workAuthorized" value="Yes" /><span>Yes</span></label>
+            <label><input type="radio" name="workAuthorized" value="No" /><span>No</span></label>
+            <label><input type="radio" name="workAuthorized" value="N/A" /><span>N/A</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row cols-2">
+        <div class="form-group">
+          <span class="inline-label">Have you ever worked for this company?</span>
+          <div class="option-group">
+            <label><input type="radio" name="workedBefore" value="Yes" /><span>Yes</span></label>
+            <label><input type="radio" name="workedBefore" value="No" /><span>No</span></label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>If so, when?</label>
+          <input type="text" name="workedBeforeWhen" placeholder="Dates of previous employment" />
+        </div>
+      </div>
+
+      <div class="form-row cols-2">
+        <div class="form-group">
+          <span class="inline-label">Have you ever been convicted of a felony?</span>
+          <div class="option-group">
+            <label><input type="radio" name="felonyConviction" value="Yes" /><span>Yes</span></label>
+            <label><input type="radio" name="felonyConviction" value="No" /><span>No</span></label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>If yes, please explain</label>
+          <input type="text" name="felonyExplanation" placeholder="Explain if applicable" />
+        </div>
+      </div>
+
+      <div class="form-row cols-2">
+        <div class="form-group">
+          <span class="inline-label">Do you know anyone currently working for TOBOLA?</span>
+          <div class="option-group">
+            <label><input type="radio" name="knowEmployee" value="Yes" /><span>Yes</span></label>
+            <label><input type="radio" name="knowEmployee" value="No" /><span>No</span></label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>If yes, what is the relationship?</label>
+          <input type="text" name="knowEmployeeRelationship" placeholder="Relationship" />
+        </div>
+      </div>
+
+      <div class="form-row cols-2">
+        <div class="form-group">
+          <span class="inline-label">Were you referred by a current employee?</span>
+          <div class="option-group">
+            <label><input type="radio" name="referredByEmployee" value="Yes" /><span>Yes</span></label>
+            <label><input type="radio" name="referredByEmployee" value="No" /><span>No</span></label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>If yes, name of reference</label>
+          <input type="text" name="referralName" placeholder="Employee name" />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <div></div>
+      <button class="btn btn-primary" onclick="nextStep()">Continue <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- ════════ STEP 2: EDUCATION ════════ -->
+  <div class="form-section" data-step="1">
+    <div class="section-card">
+      <div class="section-title">Education</div>
+      <div class="section-subtitle">List your educational background. Include the most relevant institutions attended.</div>
+
+      <!-- High School -->
+      <div class="repeater-card">
+        <div class="card-badge">HIGH SCHOOL</div>
+        <div class="form-row cols-2" style="margin-top:8px">
+          <div class="form-group">
+            <label>School Name</label>
+            <input type="text" name="hsName" placeholder="School name" />
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" name="hsAddress" placeholder="City, State" />
+          </div>
+        </div>
+        <div class="form-row cols-4">
+          <div class="form-group">
+            <label>From</label>
+            <input type="text" name="hsFrom" placeholder="Year" />
+          </div>
+          <div class="form-group">
+            <label>To</label>
+            <input type="text" name="hsTo" placeholder="Year" />
+          </div>
+          <div class="form-group">
+            <span class="inline-label">Did you graduate?</span>
+            <div class="option-group">
+              <label><input type="radio" name="hsGraduated" value="Yes" /><span>Yes</span></label>
+              <label><input type="radio" name="hsGraduated" value="No" /><span>No</span></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Degree / Diploma</label>
+            <input type="text" name="hsDegree" placeholder="Diploma type" />
+          </div>
+        </div>
+      </div>
+
+      <!-- College -->
+      <div class="repeater-card">
+        <div class="card-badge">COLLEGE</div>
+        <div class="form-row cols-2" style="margin-top:8px">
+          <div class="form-group">
+            <label>School Name</label>
+            <input type="text" name="collegeName" placeholder="College / University" />
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" name="collegeAddress" placeholder="City, State" />
+          </div>
+        </div>
+        <div class="form-row cols-4">
+          <div class="form-group">
+            <label>From</label>
+            <input type="text" name="collegeFrom" placeholder="Year" />
+          </div>
+          <div class="form-group">
+            <label>To</label>
+            <input type="text" name="collegeTo" placeholder="Year" />
+          </div>
+          <div class="form-group">
+            <span class="inline-label">Did you graduate?</span>
+            <div class="option-group">
+              <label><input type="radio" name="collegeGraduated" value="Yes" /><span>Yes</span></label>
+              <label><input type="radio" name="collegeGraduated" value="No" /><span>No</span></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Degree</label>
+            <input type="text" name="collegeDegree" placeholder="e.g., BSN, ADN" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Other -->
+      <div class="repeater-card">
+        <div class="card-badge">OTHER</div>
+        <div class="form-row cols-2" style="margin-top:8px">
+          <div class="form-group">
+            <label>School / Program Name</label>
+            <input type="text" name="otherName" placeholder="Trade school, certification, etc." />
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" name="otherAddress" placeholder="City, State" />
+          </div>
+        </div>
+        <div class="form-row cols-4">
+          <div class="form-group">
+            <label>From</label>
+            <input type="text" name="otherFrom" placeholder="Year" />
+          </div>
+          <div class="form-group">
+            <label>To</label>
+            <input type="text" name="otherTo" placeholder="Year" />
+          </div>
+          <div class="form-group">
+            <span class="inline-label">Did you graduate?</span>
+            <div class="option-group">
+              <label><input type="radio" name="otherGraduated" value="Yes" /><span>Yes</span></label>
+              <label><input type="radio" name="otherGraduated" value="No" /><span>No</span></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Degree / Certificate</label>
+            <input type="text" name="otherDegree" placeholder="Certificate name" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn btn-secondary" onclick="prevStep()"><span class="arrow">←</span> Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Continue <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- ════════ STEP 3: REFERENCES ════════ -->
+  <div class="form-section" data-step="2">
+    <div class="section-card">
+      <div class="section-title">Professional References</div>
+      <div class="section-subtitle">Please list three professional references. Must be a direct supervisor or someone at a supervisory level — not a co-worker or family member.</div>
+
+      <div class="repeater-card">
+        <div class="card-badge">REFERENCE 1</div>
+        <div class="form-row cols-2" style="margin-top:8px">
+          <div class="form-group">
+            <label>Full Name <span class="required">*</span></label>
+            <input type="text" name="ref1Name" required placeholder="Full name" />
+            <span class="error-message">Reference name is required</span>
+          </div>
+          <div class="form-group">
+            <label>Relationship</label>
+            <input type="text" name="ref1Relationship" placeholder="e.g., Former Supervisor" />
+          </div>
+        </div>
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label>Company</label>
+            <input type="text" name="ref1Company" placeholder="Organization" />
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" name="ref1Phone" placeholder="(555) 123-4567" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" name="ref1Address" placeholder="City, State" />
+          </div>
+        </div>
+      </div>
+
+      <div class="repeater-card">
+        <div class="card-badge">REFERENCE 2</div>
+        <div class="form-row cols-2" style="margin-top:8px">
+          <div class="form-group">
+            <label>Full Name <span class="required">*</span></label>
+            <input type="text" name="ref2Name" required placeholder="Full name" />
+            <span class="error-message">Reference name is required</span>
+          </div>
+          <div class="form-group">
+            <label>Relationship</label>
+            <input type="text" name="ref2Relationship" placeholder="e.g., Former Supervisor" />
+          </div>
+        </div>
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label>Company</label>
+            <input type="text" name="ref2Company" placeholder="Organization" />
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" name="ref2Phone" placeholder="(555) 123-4567" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" name="ref2Address" placeholder="City, State" />
+          </div>
+        </div>
+      </div>
+
+      <div class="repeater-card">
+        <div class="card-badge">REFERENCE 3</div>
+        <div class="form-row cols-2" style="margin-top:8px">
+          <div class="form-group">
+            <label>Full Name <span class="required">*</span></label>
+            <input type="text" name="ref3Name" required placeholder="Full name" />
+            <span class="error-message">Reference name is required</span>
+          </div>
+          <div class="form-group">
+            <label>Relationship</label>
+            <input type="text" name="ref3Relationship" placeholder="e.g., Former Supervisor" />
+          </div>
+        </div>
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label>Company</label>
+            <input type="text" name="ref3Company" placeholder="Organization" />
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" name="ref3Phone" placeholder="(555) 123-4567" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" name="ref3Address" placeholder="City, State" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn btn-secondary" onclick="prevStep()"><span class="arrow">←</span> Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Continue <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- ════════ STEP 4: PREVIOUS EMPLOYMENT ════════ -->
+  <div class="form-section" data-step="3">
+    <div class="section-card">
+      <div class="section-title">Previous Employment</div>
+      <div class="section-subtitle">List up to three most recent employers, starting with the most recent.</div>
+
+      <div class="repeater-card">
+        <div class="card-badge">EMPLOYER 1 — Most Recent</div>
+        <div class="form-row cols-2" style="margin-top:8px">
+          <div class="form-group">
+            <label>Company Name</label>
+            <input type="text" name="emp1Company" placeholder="Company" />
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" name="emp1Phone" placeholder="(555) 123-4567" />
+          </div>
+        </div>
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" name="emp1Address" placeholder="City, State" />
+          </div>
+          <div class="form-group">
+            <label>Supervisor</label>
+            <input type="text" name="emp1Supervisor" placeholder="Supervisor name" />
+          </div>
+        </div>
+        <div class="form-row cols-3">
+          <div class="form-group">
+            <label>Job Title</label>
+            <input type="text" name="emp1Title" placeholder="Your title" />
+          </div>
+          <div class="form-group">
+            <label>From</label>
+            <input type="text" name="emp1From" placeholder="MM/YYYY" />
+          </div>
+          <div class="form-group">
+            <label>To</label>
+            <input type="text" name="emp1To" placeholder="MM/YYYY" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Responsibilities</label>
+            <textarea name="emp1Responsibilities" placeholder="Brief description of your duties"></textarea>
+          </div>
+        </div>
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label>Reason for Leaving</label>
+            <input type="text" name="emp1ReasonLeaving" placeholder="Reason" />
+          </div>
+          <div class="form-group">
+            <span class="inline-label">May we contact this supervisor?</span>
+            <div class="option-group">
+              <label><input type="radio" name="emp1Contact" value="Yes" /><span>Yes</span></label>
+              <label><input type="radio" name="emp1Contact" value="No" /><span>No</span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="repeater-card">
+        <div class="card-badge">EMPLOYER 2</div>
+        <div class="form-row cols-2" style="margin-top:8px">
+          <div class="form-group">
+            <label>Company Name</label>
+            <input type="text" name="emp2Company" placeholder="Company" />
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" name="emp2Phone" placeholder="(555) 123-4567" />
+          </div>
+        </div>
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" name="emp2Address" placeholder="City, State" />
+          </div>
+          <div class="form-group">
+            <label>Supervisor</label>
+            <input type="text" name="emp2Supervisor" placeholder="Supervisor name" />
+          </div>
+        </div>
+        <div class="form-row cols-3">
+          <div class="form-group">
+            <label>Job Title</label>
+            <input type="text" name="emp2Title" placeholder="Your title" />
+          </div>
+          <div class="form-group">
+            <label>From</label>
+            <input type="text" name="emp2From" placeholder="MM/YYYY" />
+          </div>
+          <div class="form-group">
+            <label>To</label>
+            <input type="text" name="emp2To" placeholder="MM/YYYY" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Responsibilities</label>
+            <textarea name="emp2Responsibilities" placeholder="Brief description of your duties"></textarea>
+          </div>
+        </div>
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label>Reason for Leaving</label>
+            <input type="text" name="emp2ReasonLeaving" placeholder="Reason" />
+          </div>
+          <div class="form-group">
+            <span class="inline-label">May we contact this supervisor?</span>
+            <div class="option-group">
+              <label><input type="radio" name="emp2Contact" value="Yes" /><span>Yes</span></label>
+              <label><input type="radio" name="emp2Contact" value="No" /><span>No</span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="repeater-card">
+        <div class="card-badge">EMPLOYER 3</div>
+        <div class="form-row cols-2" style="margin-top:8px">
+          <div class="form-group">
+            <label>Company Name</label>
+            <input type="text" name="emp3Company" placeholder="Company" />
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" name="emp3Phone" placeholder="(555) 123-4567" />
+          </div>
+        </div>
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" name="emp3Address" placeholder="City, State" />
+          </div>
+          <div class="form-group">
+            <label>Supervisor</label>
+            <input type="text" name="emp3Supervisor" placeholder="Supervisor name" />
+          </div>
+        </div>
+        <div class="form-row cols-3">
+          <div class="form-group">
+            <label>Job Title</label>
+            <input type="text" name="emp3Title" placeholder="Your title" />
+          </div>
+          <div class="form-group">
+            <label>From</label>
+            <input type="text" name="emp3From" placeholder="MM/YYYY" />
+          </div>
+          <div class="form-group">
+            <label>To</label>
+            <input type="text" name="emp3To" placeholder="MM/YYYY" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Responsibilities</label>
+            <textarea name="emp3Responsibilities" placeholder="Brief description of your duties"></textarea>
+          </div>
+        </div>
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label>Reason for Leaving</label>
+            <input type="text" name="emp3ReasonLeaving" placeholder="Reason" />
+          </div>
+          <div class="form-group">
+            <span class="inline-label">May we contact this supervisor?</span>
+            <div class="option-group">
+              <label><input type="radio" name="emp3Contact" value="Yes" /><span>Yes</span></label>
+              <label><input type="radio" name="emp3Contact" value="No" /><span>No</span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn btn-secondary" onclick="prevStep()"><span class="arrow">←</span> Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Continue <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- ════════ STEP 5: MILITARY ════════ -->
+  <div class="form-section" data-step="4">
+    <div class="section-card">
+      <div class="section-title">Military Service</div>
+      <div class="section-subtitle">Complete this section if applicable. Leave blank if you have no military service.</div>
+
+      <div class="form-row cols-3">
+        <div class="form-group">
+          <label>Branch</label>
+          <input type="text" name="milBranch" placeholder="e.g., U.S. Army" />
+        </div>
+        <div class="form-group">
+          <label>From</label>
+          <input type="text" name="milFrom" placeholder="MM/YYYY" />
+        </div>
+        <div class="form-group">
+          <label>To</label>
+          <input type="text" name="milTo" placeholder="MM/YYYY" />
+        </div>
+      </div>
+      <div class="form-row cols-2">
+        <div class="form-group">
+          <label>Rank at Discharge</label>
+          <input type="text" name="milRank" placeholder="Rank" />
+        </div>
+        <div class="form-group">
+          <label>Type of Discharge</label>
+          <select name="milDischargeType">
+            <option value="">Select...</option>
+            <option value="Honorable">Honorable</option>
+            <option value="General">General (Under Honorable)</option>
+            <option value="Other">Other Than Honorable</option>
+            <option value="N/A">N/A</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>If other than honorable, please explain</label>
+          <textarea name="milDischargeExplanation" placeholder="Explanation if applicable"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn btn-secondary" onclick="prevStep()"><span class="arrow">←</span> Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Continue <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- ════════ STEP 6: DISCLAIMER & SIGNATURE ════════ -->
+  <div class="form-section" data-step="5">
+    <div class="section-card">
+      <div class="section-title">Disclaimer & Signature</div>
+      <div class="section-subtitle">Please read the following statement carefully before signing.</div>
+
+      <div class="disclaimer-text">
+        I certify that my answers are true and complete to the best of my knowledge. If this application leads to employment, I understand that false or misleading information in my application or interview may result in my release.
+      </div>
+
+      <div class="consent-check">
+        <input type="checkbox" id="consentCheck" name="consent" />
+        <span>I have read and agree to the above disclaimer. I certify that all information provided in this application is accurate and complete. <span style="color:var(--error)">*</span></span>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="form-group">
+        <label>Full Name (as signature) <span class="required">*</span></label>
+        <input type="text" name="signatureName" required placeholder="Type your full legal name" style="font-style: italic; font-size: 16px;" />
+        <span class="error-message">Signature is required</span>
+      </div>
+
+      <div class="form-row cols-2" style="margin-top:16px">
+        <div class="form-group">
+          <label>Signature (draw below)</label>
+          <div class="signature-pad-container">
+            <canvas id="signaturePad"></canvas>
+          </div>
+          <div class="signature-actions">
+            <button class="btn-clear-sig" onclick="clearSignature()">Clear signature</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" name="signatureDate" />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn btn-secondary" onclick="prevStep()"><span class="arrow">←</span> Back</button>
+      <button class="btn btn-submit" onclick="submitApplication()" id="submitBtn">Submit Application <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- SUCCESS SCREEN -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✓</div>
+    <h2>Application Submitted!</h2>
+    <p>Thank you for applying to TOBOLA Health Care Services. Your application has been received and our team will review it shortly. We'll be in touch!</p>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  <p>Submitting your application...</p>
+</div>
+
+<div class="app-footer">
+  &copy; 2026 TOBOLA Health Care Services Inc. — Because We Care
+</div>
+
+<script>
+  // ─── STATE ───
+  let currentStep = 0;
+  const totalSteps = 6;
+
+  // ─── NAVIGATION ───
+  function goToStep(step, force) {
+    if (step < 0 || step >= totalSteps) return;
+    // Only allow going to completed or current steps via stepper click (unless forced by nextStep)
+    const indicators = document.querySelectorAll('.step-indicator');
+    if (!force && !indicators[step].classList.contains('completed') && step !== currentStep && step > currentStep) return;
+
+    document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.step-indicator').forEach(s => s.classList.remove('active'));
+
+    const section = document.querySelector(`.form-section[data-step="${step}"]`);
+    if (section) section.classList.add('active');
+    indicators[step].classList.add('active');
+
+    currentStep = step;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function nextStep() {
+    if (currentStep < totalSteps - 1) {
+      // Validate required fields on current step
+      const section = document.querySelector(`.form-section[data-step="${currentStep}"]`);
+      const requiredInputs = section.querySelectorAll('input[required]');
+      let missing = [];
+
+      // Clear previous errors
+      section.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+      section.querySelectorAll('.has-error').forEach(el => el.classList.remove('has-error'));
+
+      requiredInputs.forEach(input => {
+        const group = input.closest('.form-group');
+        if (!input.value.trim()) {
+          input.classList.add('error');
+          if (group) group.classList.add('has-error');
+          const label = group ? group.querySelector('label') : null;
+          const fieldName = label ? label.textContent.replace('*','').trim() : input.name;
+          missing.push(fieldName);
+        }
+      });
+
+      if (missing.length > 0) {
+        // Remove any existing alert
+        const existingAlert = section.querySelector('.validation-alert');
+        if (existingAlert) existingAlert.remove();
+
+        // Show visible alert at top of section
+        const alert = document.createElement('div');
+        alert.className = 'validation-alert';
+        alert.style.cssText = 'background:#FDEDEC;border:1.5px solid #C0392B;border-radius:8px;padding:14px 18px;margin-bottom:20px;color:#C0392B;font-size:14px;font-weight:500;';
+        alert.innerHTML = '⚠️ Please fill in the following required fields: <strong>' + missing.join(', ') + '</strong>';
+
+        const card = section.querySelector('.section-card');
+        const subtitle = card.querySelector('.section-subtitle');
+        if (subtitle) subtitle.after(alert);
+        else card.prepend(alert);
+
+        // Scroll to alert
+        alert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Also scroll to first error field
+        const firstError = section.querySelector('input.error');
+        if (firstError) {
+          setTimeout(() => firstError.focus(), 400);
+        }
+        return;
+      }
+
+      // Clear any alert if valid
+      const existingAlert = section.querySelector('.validation-alert');
+      if (existingAlert) existingAlert.remove();
+
+      // Mark current step completed
+      document.querySelectorAll('.step-indicator')[currentStep].classList.add('completed');
+      goToStep(currentStep + 1, true);
+    }
+  }
+
+  function prevStep() {
+    if (currentStep > 0) goToStep(currentStep - 1);
+  }
+
+  // Remove error styling on input
+  document.addEventListener('input', function(e) {
+    if (e.target.classList.contains('error')) {
+      e.target.classList.remove('error');
+      const group = e.target.closest('.form-group');
+      if (group) group.classList.remove('has-error');
+    }
+  });
+
+  // ─── SIGNATURE PAD ───
+  const canvas = document.getElementById('signaturePad');
+  const ctx = canvas.getContext('2d');
+  let isDrawing = false;
+
+  function resizeCanvas() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width - 8;
+    canvas.height = 120;
+    ctx.strokeStyle = '#2C3650';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  }
+
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches ? e.touches[0] : e;
+    return { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
+  }
+
+  canvas.addEventListener('mousedown', (e) => { isDrawing = true; ctx.beginPath(); const p = getPos(e); ctx.moveTo(p.x, p.y); });
+  canvas.addEventListener('mousemove', (e) => { if (!isDrawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); });
+  canvas.addEventListener('mouseup', () => { isDrawing = false; });
+  canvas.addEventListener('mouseleave', () => { isDrawing = false; });
+  canvas.addEventListener('touchstart', (e) => { e.preventDefault(); isDrawing = true; ctx.beginPath(); const p = getPos(e); ctx.moveTo(p.x, p.y); }, { passive: false });
+  canvas.addEventListener('touchmove', (e) => { e.preventDefault(); if (!isDrawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }, { passive: false });
+  canvas.addEventListener('touchend', () => { isDrawing = false; });
+
+  function clearSignature() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  // ─── COLLECT DATA ───
+  function collectFormData() {
+    const data = {};
+    const container = document.getElementById('formContainer');
+
+    // Text, date, email, tel inputs
+    container.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="date"], textarea, select').forEach(el => {
+      if (el.name) data[el.name] = el.value;
+    });
+
+    // Radio buttons
+    container.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+      data[el.name] = el.value;
+    });
+
+    // Checkboxes (shifts)
+    const shifts = [];
+    container.querySelectorAll('input[type="checkbox"]:checked').forEach(el => {
+      if (el.name === 'consent') {
+        data.consent = true;
+      } else if (el.value) {
+        shifts.push(el.value);
+      }
+    });
+    if (shifts.length) data.shiftsApplied = shifts.join(', ');
+
+    // Signature
+    data.signatureImage = canvas.toDataURL('image/png');
+
+    // Timestamp
+    data.submittedAt = new Date().toISOString();
+
+    return data;
+  }
+
+  // ─── SUBMIT ───
+  async function submitApplication() {
+    // Check consent
+    if (!document.getElementById('consentCheck').checked) {
+      alert('Please agree to the disclaimer before submitting.');
+      return;
+    }
+
+    // Check signature name
+    const sigName = document.querySelector('input[name="signatureName"]');
+    if (!sigName.value.trim()) {
+      sigName.classList.add('error');
+      sigName.closest('.form-group').classList.add('has-error');
+      sigName.focus();
+      return;
+    }
+
+    const data = collectFormData();
+    const overlay = document.getElementById('loadingOverlay');
+    overlay.classList.add('active');
+
+    // ═══════════════════════════════════════════════════
+    // WEBHOOK URL — Your n8n webhook URL
+    // ═══════════════════════════════════════════════════
+    const WEBHOOK_URL = 'https://n8n-tob-auto-u36124.vm.elestio.app/webhook/03d084f9-3dc6-4ab3-aab0-c2e57553da65';
+
+    try {
+      // Remove signature image to reduce payload size (optional large base64 string)
+      const submitData = { ...data };
+      delete submitData.signatureImage;
+
+      // Use sendBeacon for reliable, CORS-free delivery
+      const blob = new Blob([JSON.stringify(submitData)], { type: 'text/plain' });
+      const sent = navigator.sendBeacon(WEBHOOK_URL, blob);
+
+      if (!sent) {
+        // Fallback: use fetch with no-cors mode (fire-and-forget)
+        fetch(WEBHOOK_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(submitData),
+        });
+      }
+
+      // Short delay to allow the request to complete
+      await new Promise(r => setTimeout(r, 1200));
+
+      overlay.classList.remove('active');
+      document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.step-indicator').forEach(s => {
+        s.classList.remove('active');
+        s.classList.add('completed');
+      });
+      document.getElementById('successScreen').classList.add('active');
+
+    } catch (err) {
+      overlay.classList.remove('active');
+      alert('There was an issue submitting your application. Please try again or contact us directly.');
+      console.error(err);
+    }
+  }
+
+  // Set today's date as default for date fields
+  const today = new Date().toISOString().split('T')[0];
+  const appDate = document.querySelector('input[name="applicationDate"]');
+  const sigDate = document.querySelector('input[name="signatureDate"]');
+  if (appDate) appDate.value = today;
+  if (sigDate) sigDate.value = today;
+</script>
+</body>
+</html>
